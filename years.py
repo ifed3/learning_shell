@@ -1,20 +1,23 @@
 #!/usr/bin/python
 """Prints number of years till 100"""
 
-import sys
+# import sys The system module is no longer needed at the moment
+import optparse # Use in creating script options
 
-# Variable definition is done with the equal sign
-# argv is the list of arguments entered at runtime
-# argv[0] is the path of the script being run
-if len(sys.argv) > 1:
-    name = sys.argv[1]
-else:
-    name = raw_input('What is your name? ')
+parser = optparse.OptionParser()
+parser.add_option('-n', '--name', dest='name', help='Provide your name')
+parser.add_option('-a', '--age', dest='age', help='Provide your age', type=int)
 
-if len(sys.argv) > 2:
-    age = int(sys.argv[2]) # Type conversion is done as str() or float()
-else:
-    age = int(raw_input('How young are you? '))
+(options, args) = parser.parse_args()
+
+if not options.name:
+    options.name = raw_input('What is your name? ')
+
+if not options.age:
+    options.age = int(raw_input('How young are you? '))
+
+# Use tuple for multi variable definition
+(name, age) = (options.name, options.age)
 
 if age == 100:
     comment = "You're already on the dot"
